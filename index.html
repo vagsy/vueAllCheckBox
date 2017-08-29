@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Cache-Control" content="no-transform" />  
+        <meta http-equiv="Cache-Control" content="no-siteapp" />  
+        <meta content="yes" name="apple-mobile-web-app-capable"/>
+        <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+        <meta content="telephone=no,address=no" name="format-detection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <title>VueJS来实现checkbox的全选和反选</title>
+        <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+    </head>
+    <body>
+        <table class="table table-bordered table-striped" id="app">
+            <thead>
+                <tr>
+                    <th width="50px"><input type="checkbox" class="fan-checkbox" v-model="checkAll" @click="checkedAll()"></th>
+                    <th>权限包名</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="pers in permissionsPackageList">
+                    <td>
+                    <input type="checkbox" :value="pers.id" class="fan-checkbox" v-model='ischeckdate' />
+                    </td>
+                    <td>{{pers.name}}</td>
+                    <td>{{pers.remark}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <script type="text/javascript" src="./js/jQuery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="./js/vue.min.js"></script>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: '#app',
+                watch: {
+                    ischeckdate: function() {
+                        if (this.permissionsPackageList.length === this.ischeckdate.length) {
+                            this.checkAll = true;
+                        } else {
+                            this.checkAll = false;
+                        }
+                    },
+                    checkAll(yes) {
+                        this.checkAll = yes;
+                    }
+                },
+                data() {
+                    return {
+                        permissionsPackageList: [{
+                            id: 1,
+                            name: "BD",
+                            remark: "销售"
+                        },
+                        {
+                            id: 2,
+                            name: "导购",
+                            remark: "展厅导购"
+                        },
+                        {
+                            id: 3,
+                            name: "HR",
+                            remark: "人事"
+                        },
+                        ],
+                        ischeckdate: [],
+                        //获取选项框数据
+                        checkAll: false,
+                        //全选
+                    }
+                },
+                methods: {
+                    checkedAll: function() {
+                        var ischeckdate = [];
+                        if (!this.checkAll) {
+                            this.permissionsPackageList.forEach(function(i, n){
+                                ischeckdate.push(n+1);
+                            });
+                        }
+                        this.ischeckdate = ischeckdate;
+                    },
+                }
+                 
+            });
+        </script>
+    </body>
+</html>
