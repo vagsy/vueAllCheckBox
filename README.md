@@ -2,6 +2,7 @@
 VueJS来实现checkbox的全选和反选
 
 摘要: 1、监听全选的值的变化，来改变checkbox的数组值； 2、监听选择checkbox的数组值的变化，当某一项checkbox有变化，判断是否checkbox的数组长度是否和列表数据的长度一致，来改变全选的值；
+
 html:
 ```
 <table class="fan-table-permissions">
